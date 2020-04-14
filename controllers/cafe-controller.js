@@ -1,21 +1,21 @@
 var mongoose = require('mongoose');
 var Cafe = mongoose.model('cafes');
 
-var findAllCafes = function(req, res, next) {
+var findAllCafes = function (req, res, next) {
     Cafe.find()
         .lean()
-        .then(function(doc) {
-            res.render('index', {items: doc});
+        .then(function (doc) {
+            res.render('index', { items: doc });
         });
 };
 
-var createCafe = function(req, res, next) {
+var createCafe = function (req, res, next) {
     var item = {
-        name:req.body.name,
-        address:req.body.address,
-        distance:req.body.distance,
-        rating:req.body.rating,
-        photo:req.body.photo
+        name: req.body.name,
+        address: req.body.address,
+        distance: req.body.distance,
+        rating: req.body.rating,
+        photo: req.body.photo
     };
 
     var data = new Cafe(item);
@@ -24,10 +24,10 @@ var createCafe = function(req, res, next) {
     res.redirect('/');
 };
 
-var updateCafe = function(req, res, next) {
+var updateCafe = function (req, res, next) {
     var id = req.body.id;
 
-    Cafe.findById(id, function(err, doc) {
+    Cafe.findById(id, function (err, doc) {
         if (err) {
             console.error('error, no cafe found');
         }
@@ -41,7 +41,7 @@ var updateCafe = function(req, res, next) {
     res.redirect('/');
 };
 
-var deleteCafe = function(req, res, next) {
+var deleteCafe = function (req, res, next) {
     var id = req.body.id;
     Cafe.findByIdAndRemove(id).exec();
     res.redirect('/');
